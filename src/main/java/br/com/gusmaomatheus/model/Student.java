@@ -103,16 +103,28 @@ public final class Student {
 
     public void setGrade1(BigDecimal grade1) {
         Objects.requireNonNull(name, "Grade cannot be null.");
+
+        if (!Validation.isValidGrade(grade1))
+            throw new IllegalArgumentException("Invalid Grade: " + grade1);
+
         this.grade1 = grade1;
     }
 
     public void setGrade2(BigDecimal grade2) {
         Objects.requireNonNull(name, "Grade cannot be null.");
+
+        if (!Validation.isValidGrade(grade2))
+            throw new IllegalArgumentException("Invalid Grade: " + grade2);
+
         this.grade2 = grade2;
     }
 
     public void setGrade3(BigDecimal grade3) {
         Objects.requireNonNull(name, "Grade cannot be null.");
+
+        if (!Validation.isValidGrade(grade3))
+            throw new IllegalArgumentException("Invalid Grade: " + grade3);
+
         this.grade3 = grade3;
     }
 }
