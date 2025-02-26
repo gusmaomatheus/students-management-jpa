@@ -1,5 +1,6 @@
 package br.com.gusmaomatheus.model;
 
+import br.com.gusmaomatheus.util.Validation;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -72,26 +73,40 @@ public final class Student {
     }
 
     public void setName(String name) {
+        Objects.requireNonNull(name, "Name cannot be null.");
         this.name = name;
     }
 
     public void setRa(String ra) {
+        Objects.requireNonNull(name, "RA cannot be null.");
+
+        if (!Validation.isValidRA(ra))
+            throw new IllegalArgumentException("Invalid RA: " + ra);
+
         this.ra = ra;
     }
 
     public void setEmail(String email) {
+        Objects.requireNonNull(name, "Email cannot be null.");
+
+        if (!Validation.isValidEmail(email))
+            throw new IllegalArgumentException("Invalid Email: " + email);
+
         this.email = email;
     }
 
     public void setGrade1(BigDecimal grade1) {
+        Objects.requireNonNull(name, "Grade cannot be null.");
         this.grade1 = grade1;
     }
 
     public void setGrade2(BigDecimal grade2) {
+        Objects.requireNonNull(name, "Grade cannot be null.");
         this.grade2 = grade2;
     }
 
     public void setGrade3(BigDecimal grade3) {
+        Objects.requireNonNull(name, "Grade cannot be null.");
         this.grade3 = grade3;
     }
 }
