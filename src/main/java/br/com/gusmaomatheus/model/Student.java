@@ -84,7 +84,7 @@ public final class Student {
     }
 
     public void setRa(String ra) {
-        Objects.requireNonNull(name, "RA cannot be null.");
+        Objects.requireNonNull(ra, "RA cannot be null.");
 
         if (!Validation.isValidRA(ra))
             throw new IllegalArgumentException("Invalid RA: " + ra);
@@ -93,7 +93,7 @@ public final class Student {
     }
 
     public void setEmail(String email) {
-        Objects.requireNonNull(name, "Email cannot be null.");
+        Objects.requireNonNull(email, "Email cannot be null.");
 
         if (!Validation.isValidEmail(email))
             throw new IllegalArgumentException("Invalid Email: " + email);
@@ -102,7 +102,7 @@ public final class Student {
     }
 
     public void setGrade1(BigDecimal grade1) {
-        Objects.requireNonNull(name, "Grade cannot be null.");
+        Objects.requireNonNull(grade1, "Grade cannot be null.");
 
         if (!Validation.isValidGrade(grade1))
             throw new IllegalArgumentException("Invalid Grade: " + grade1);
@@ -111,7 +111,7 @@ public final class Student {
     }
 
     public void setGrade2(BigDecimal grade2) {
-        Objects.requireNonNull(name, "Grade cannot be null.");
+        Objects.requireNonNull(grade2, "Grade cannot be null.");
 
         if (!Validation.isValidGrade(grade2))
             throw new IllegalArgumentException("Invalid Grade: " + grade2);
@@ -120,7 +120,7 @@ public final class Student {
     }
 
     public void setGrade3(BigDecimal grade3) {
-        Objects.requireNonNull(name, "Grade cannot be null.");
+        Objects.requireNonNull(grade3, "Grade cannot be null.");
 
         if (!Validation.isValidGrade(grade3))
             throw new IllegalArgumentException("Invalid Grade: " + grade3);
