@@ -1,5 +1,6 @@
 package br.com.gusmaomatheus.util;
 
+import java.math.BigDecimal;
 import java.util.regex.Pattern;
 
 public final class Validation {
@@ -14,5 +15,11 @@ public final class Validation {
 
     public static boolean isValidRA(String ra) {
         return RA_PATTERN.matcher(ra).matches();
+    }
+
+    public static boolean isValidGrade(BigDecimal grade) {
+        final double doubleGrade = grade.doubleValue();
+
+        return doubleGrade >= 0 && doubleGrade <= 10;
     }
 }
