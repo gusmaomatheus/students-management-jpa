@@ -24,8 +24,14 @@ public final class Student {
 
     public Student() {}
 
-    public Student(String name, String ra, String email, BigDecimal grade1, BigDecimal grade2, BigDecimal grade3) {}
-
+    public Student(String name, String ra, String email, BigDecimal grade1, BigDecimal grade2, BigDecimal grade3) {
+        setName(name);
+        setRa(ra);
+        setEmail(email);
+        setGrade1(grade1);
+        setGrade2(grade2);
+        setGrade3(grade3);
+    }
 
     @Override
     public boolean equals(Object o) {
