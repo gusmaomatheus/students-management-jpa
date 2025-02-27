@@ -1,12 +1,10 @@
 package br.com.gusmaomatheus.model;
 
 import br.com.gusmaomatheus.util.Validation;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Objects;
 
 @Entity
@@ -21,6 +19,8 @@ public final class Student {
     private BigDecimal grade1;
     private BigDecimal grade2;
     private BigDecimal grade3;
+    @Enumerated(EnumType.STRING)
+    private Situation situation;
 
     public Student() {}
 
@@ -31,6 +31,23 @@ public final class Student {
         setGrade1(grade1);
         setGrade2(grade2);
         setGrade3(grade3);
+
+        final double average = average();
+
+        if (average >= 6.0)
+            this.situation = Situation.APPROVED;
+        else if (average < 4.0)
+            this.situation = Situation.FAILED;
+        else
+            this.situation = Situation.RECOVERY;
+    }
+
+    private double average() {
+        return grade1
+                .add(grade2)
+                .add(grade3)
+                .divide(BigDecimal.valueOf(3.0), RoundingMode.HALF_UP)
+                .doubleValue();
     }
 
     @Override
@@ -76,6 +93,10 @@ public final class Student {
 
     public BigDecimal getGrade3() {
         return grade3;
+    }
+
+    public String getSituation() {
+        return situation.getDescription();
     }
 
     public void setName(String name) {
