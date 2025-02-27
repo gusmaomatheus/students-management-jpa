@@ -1,12 +1,15 @@
 package br.com.gusmaomatheus.persistence.dao;
 
 import br.com.gusmaomatheus.model.Student;
-import br.com.gusmaomatheus.persistence.ConnectionFactory;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
 public final class H2DatabaseStudentDAO implements StudentDAO {
-    private final EntityManager entityManager = ConnectionFactory.getEntityManager();
+    private final EntityManager entityManager;
+
+    public H2DatabaseStudentDAO(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
 
     @Override
     public void save(Student student) {
@@ -15,7 +18,5 @@ public final class H2DatabaseStudentDAO implements StudentDAO {
         transaction.begin();
         entityManager.persist(student);
         transaction.commit();
-
-        entityManager.close();
     }
 }
