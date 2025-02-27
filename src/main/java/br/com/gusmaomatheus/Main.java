@@ -5,6 +5,7 @@ import br.com.gusmaomatheus.persistence.ConnectionFactory;
 import br.com.gusmaomatheus.persistence.dao.H2DatabaseStudentDAO;
 import br.com.gusmaomatheus.persistence.dao.StudentDAO;
 import br.com.gusmaomatheus.services.RegisterStudentService;
+import br.com.gusmaomatheus.services.UpdateStudentService;
 import br.com.gusmaomatheus.util.UI;
 import jakarta.persistence.EntityManager;
 
@@ -19,6 +20,7 @@ public class Main {
         final EntityManager entityManager = ConnectionFactory.getEntityManager();
         final StudentDAO dao = new H2DatabaseStudentDAO(entityManager);
         final RegisterStudentService registerService = new RegisterStudentService(dao);
+        final UpdateStudentService updateService = new UpdateStudentService(dao);
 
         try {
             int option;
@@ -52,11 +54,44 @@ public class Main {
                         registerService.register(newStudent);
 
                         break;
+                    case 3:
+                        System.out.println("ALTERAR ALUNO:");
+                        System.out.print("Digite o nome: ");
+                        final String nameUpdate = scanner.nextLine();
+
+                        final Optional<Student> updateStudent = dao.findByName(nameUpdate);
+
+                        if (updateStudent.isPresent()) {
+                            System.out.println("Dados do aluno:");
+                            UI.printStudentInfos(updateStudent.get());
+
+                            System.out.println("\n\nNOVOS DADOS:\n\n");
+
+                            System.out.print("Digite o nome: ");
+                            final String newName = scanner.nextLine();
+                            System.out.print("Digite o RA: ");
+                            final String newRa = scanner.nextLine();
+                            System.out.print("Digite o email: ");
+                            final String newEmail = scanner.nextLine();
+
+
+                            System.out.print("Digite a nota 1: ");
+                            final BigDecimal newGrade1 = BigDecimal.valueOf(scanner.nextDouble());
+                            System.out.print("Digite a nota 2: ");
+                            final BigDecimal newGrade2 = BigDecimal.valueOf(scanner.nextDouble());
+                            System.out.print("Digite a nota 3: ");
+                            final BigDecimal newGrade3 = BigDecimal.valueOf(scanner.nextDouble());
+
+                            updateService.update(updateStudent.get(), newName, newRa, newEmail, newGrade1, newGrade2, newGrade3);
+                        } else {
+                            System.out.println("Aluno não encontrado.");
+                        }
+                        break;
                     case 4:
                         System.out.print("Digite o nome: ");
-                        final String nameParameter = scanner.nextLine();
+                        final String nameFound = scanner.nextLine();
 
-                        final Optional<Student> foundStudent = dao.findByName(nameParameter);
+                        final Optional<Student> foundStudent = dao.findByName(nameFound);
 
                         if (foundStudent.isPresent()) {
                             UI.printStudentInfos(foundStudent.get());
@@ -88,7 +123,7 @@ public class Main {
                 }
             } while (6 != option);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
 
         scanner.close();
