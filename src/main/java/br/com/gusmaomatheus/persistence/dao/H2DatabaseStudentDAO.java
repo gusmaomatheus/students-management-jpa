@@ -61,4 +61,13 @@ public final class H2DatabaseStudentDAO implements StudentDAO {
 
         transaction.commit();
     }
+
+    @Override
+    public void remove(Student student) {
+        final EntityTransaction transaction = entityManager.getTransaction();
+
+        transaction.begin();
+        entityManager.remove(student);
+        transaction.commit();
+    }
 }
