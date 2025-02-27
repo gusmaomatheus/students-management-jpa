@@ -5,7 +5,9 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.NoResultException;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 public final class H2DatabaseStudentDAO implements StudentDAO {
@@ -37,10 +39,26 @@ public final class H2DatabaseStudentDAO implements StudentDAO {
 
         try {
             return Optional.of(entityManager.createQuery(query, Student.class)
-                            .setParameter("name", name)
-                            .getSingleResult());
+                    .setParameter("name", name)
+                    .getSingleResult());
         } catch (NoResultException exception) {
             return Optional.empty();
         }
+    }
+
+    @Override
+    public void update(Student student, String name, String ra, String email, BigDecimal grade1, BigDecimal grade2, BigDecimal grade3) {
+        final EntityTransaction transaction = entityManager.getTransaction();
+
+        transaction.begin();
+
+        student.setName(name);
+        student.setEmail(email);
+        student.setRa(ra);
+        student.setGrade1(grade1);
+        student.setGrade2(grade2);
+        student.setGrade3(grade3);
+
+        transaction.commit();
     }
 }
