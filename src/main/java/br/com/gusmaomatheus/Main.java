@@ -74,7 +74,7 @@ public class Main {
                 }
             } while (6 != option);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
 
         scanner.close();

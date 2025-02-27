@@ -5,6 +5,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
 import java.util.List;
+import java.util.Optional;
 
 public final class H2DatabaseStudentDAO implements StudentDAO {
     private final EntityManager entityManager;
@@ -27,5 +28,15 @@ public final class H2DatabaseStudentDAO implements StudentDAO {
         final String query = "SELECT s FROM Student s";
 
         return entityManager.createQuery(query, Student.class).getResultList();
+    }
+
+    @Override
+    public Optional<Student> findByName(String name) {
+        final String query = "SELECT s FROM Student s WHERE s.name = :name";
+
+        return Optional.ofNullable(
+                entityManager.createQuery(query, Student.class)
+                        .setParameter("name", name)
+                        .getSingleResult());
     }
 }
