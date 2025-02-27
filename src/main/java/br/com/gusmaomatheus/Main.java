@@ -10,6 +10,7 @@ import jakarta.persistence.EntityManager;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class Main {
@@ -49,6 +50,19 @@ public class Main {
 
                         final Student newStudent = new Student(name, ra, email, grade1, grade2, grade3);
                         registerService.register(newStudent);
+
+                        break;
+                    case 4:
+                        System.out.print("Digite o nome: ");
+                        final String nameParameter = scanner.nextLine();
+
+                        final Optional<Student> foundStudent = dao.findByName(nameParameter);
+
+                        if (foundStudent.isPresent()) {
+                            UI.printStudentInfos(foundStudent.get());
+                        } else {
+                            System.out.println("Aluno não encontrado.");
+                        }
 
                         break;
                     case 5:
