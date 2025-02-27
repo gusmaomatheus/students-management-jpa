@@ -5,6 +5,7 @@ import br.com.gusmaomatheus.persistence.ConnectionFactory;
 import br.com.gusmaomatheus.persistence.dao.H2DatabaseStudentDAO;
 import br.com.gusmaomatheus.persistence.dao.StudentDAO;
 import br.com.gusmaomatheus.services.RegisterStudentService;
+import br.com.gusmaomatheus.services.RemoveStudentService;
 import br.com.gusmaomatheus.services.UpdateStudentService;
 import br.com.gusmaomatheus.util.UI;
 import jakarta.persistence.EntityManager;
@@ -21,6 +22,7 @@ public class Main {
         final StudentDAO dao = new H2DatabaseStudentDAO(entityManager);
         final RegisterStudentService registerService = new RegisterStudentService(dao);
         final UpdateStudentService updateService = new UpdateStudentService(dao);
+        final RemoveStudentService removeService = new RemoveStudentService(dao);
 
         try {
             int option;
@@ -53,6 +55,21 @@ public class Main {
                         final Student newStudent = new Student(name, ra, email, grade1, grade2, grade3);
                         registerService.register(newStudent);
 
+                        break;
+                    case 2:
+                        System.out.println("EXLUIR ALUNO:");
+                        System.out.print("Digite o nome: ");
+                        final String targetName = scanner.nextLine();
+
+                        final Optional<Student> target = dao.findByName(targetName);
+
+                        if (target.isPresent()) {
+                            removeService.remove(target.get());
+
+                            System.out.println("Aluno removido com sucesso!");
+                        } else {
+                            System.out.println("Aluno não encontrado.");
+                        }
                         break;
                     case 3:
                         System.out.println("ALTERAR ALUNO:");
