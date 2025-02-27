@@ -32,7 +32,7 @@ public final class Student {
         setGrade2(grade2);
         setGrade3(grade3);
 
-        final double average = average();
+        final double average = getAverage();
 
         if (average >= 6.0)
             this.situation = Situation.APPROVED;
@@ -42,7 +42,7 @@ public final class Student {
             this.situation = Situation.RECOVERY;
     }
 
-    private double average() {
+    public double getAverage() {
         return grade1
                 .add(grade2)
                 .add(grade3)
