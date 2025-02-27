@@ -3,6 +3,7 @@ package br.com.gusmaomatheus.persistence.dao;
 import br.com.gusmaomatheus.model.Student;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.NoResultException;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,9 +35,13 @@ public final class H2DatabaseStudentDAO implements StudentDAO {
     public Optional<Student> findByName(String name) {
         final String query = "SELECT s FROM Student s WHERE s.name = :name";
 
-        return Optional.ofNullable(
-                entityManager.createQuery(query, Student.class)
-                        .setParameter("name", name)
-                        .getSingleResult());
+        try {
+            return Optional.ofNullable(
+                    entityManager.createQuery(query, Student.class)
+                            .setParameter("name", name)
+                            .getSingleResult());
+        } catch (NoResultException exception) {
+            return Optional.empty();
+        }
     }
 }
