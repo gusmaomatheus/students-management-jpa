@@ -4,6 +4,8 @@ import br.com.gusmaomatheus.model.Student;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
+import java.util.List;
+
 public final class H2DatabaseStudentDAO implements StudentDAO {
     private final EntityManager entityManager;
 
@@ -18,5 +20,12 @@ public final class H2DatabaseStudentDAO implements StudentDAO {
         transaction.begin();
         entityManager.persist(student);
         transaction.commit();
+    }
+
+    @Override
+    public List<Student> findAll() {
+        final String query = "SELECT s FROM Student s";
+
+        return entityManager.createQuery(query, Student.class).getResultList();
     }
 }

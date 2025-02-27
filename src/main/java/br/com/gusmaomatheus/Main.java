@@ -9,6 +9,7 @@ import br.com.gusmaomatheus.util.UI;
 import jakarta.persistence.EntityManager;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -49,6 +50,23 @@ public class Main {
                         final Student newStudent = new Student(name, ra, email, grade1, grade2, grade3);
                         registerService.register(newStudent);
 
+                        break;
+                    case 5:
+                        final List<Student> students = dao.findAll();
+
+                        if (students.isEmpty()) {
+                            System.out.println("Nenhum aluno cadastrado na base!!!");
+                        } else {
+                            System.out.println("\nExibindo todos os alunos:\n");
+                            for (Student s : students) {
+                                UI.printStudentInfos(s);
+                            }
+                        }
+
+                        break;
+                    case 6:
+                        System.out.println("Vai curintia!!");
+                        System.out.println("Obrigado Diego Souza #Libertadores2012");
                         break;
                     default:
                         System.out.println("Opção inválida!");
