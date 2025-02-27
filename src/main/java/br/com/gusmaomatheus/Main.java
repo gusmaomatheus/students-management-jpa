@@ -15,6 +15,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
+/*
+    Matheus Gusmão | SC3039951
+    Murilo Silva | SC3038467
+ */
 public class Main {
     public static void main(String[] args) {
         final Scanner scanner = new Scanner(System.in);
