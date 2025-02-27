@@ -36,8 +36,7 @@ public final class H2DatabaseStudentDAO implements StudentDAO {
         final String query = "SELECT s FROM Student s WHERE s.name = :name";
 
         try {
-            return Optional.ofNullable(
-                    entityManager.createQuery(query, Student.class)
+            return Optional.of(entityManager.createQuery(query, Student.class)
                             .setParameter("name", name)
                             .getSingleResult());
         } catch (NoResultException exception) {
