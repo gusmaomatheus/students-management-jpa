@@ -1,7 +1,3 @@
-Aqui está o README atualizado:
-
----
-
 # Sistema de Gerenciamento de Alunos 📚
 
 Este é um projeto simples desenvolvido em **Java** utilizando **JPA (Hibernate)** com banco de dados **H2**. O objetivo é implementar um sistema básico de gerenciamento de alunos.
